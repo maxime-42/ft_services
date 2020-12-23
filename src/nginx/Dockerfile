@@ -1,6 +1,6 @@
 FROM alpine:latest
 RUN apk update && apk add nginx \
-&& apk add --no-cache --upgrade bash \
+&& apk add --upgrade bash \
 && apk add openssl && mkdir -p var/run/nginx \
 && apk add openssl openssh \
 && rm -rf /var/cache/apk/*
