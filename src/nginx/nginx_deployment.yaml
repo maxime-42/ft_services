@@ -19,19 +19,40 @@ spec:
         image: my_nginx
         ports:
         - containerPort: 80
+          name: http
+        - containerPort: 443
+          name: https
+        imagePullPolicy: Never        
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
-  annotations:
-    metallb.universe.tf/allow-shared-ip: "true"
+  name: nginx
 spec:
-  selector:
-    app: nginx
-  type: LoadBalancer
+  type: LoadBalancer #le type de notre service. 
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+  - name: http
+    port: 80 #le port est le numéro de port qui sera utilisé par notre service afin de communiquer avec lui depuis l'intérieur de notre cluster K8. 
+    targetPort: 80 # le targetPort est le port qui est utilisé par les Pods de notre Deployment
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: 443
+    protocol: TCP
+  selector:
+    app: nginx # nous indiquons que le service nginx-app ne sera utilisé que par les Pods ayant le label app: nginx-app. 
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginx-service
+# spec:
+#   selector:
+#     app: nginx
+#   type: LoadBalancer
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 80

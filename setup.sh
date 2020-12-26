@@ -1,6 +1,7 @@
 #!/bin/sh
 
 docker image rm -f my_nginx
+docker image rm -f nginx
 minikube delete
 minikube start --vm-driver=docker
 
@@ -15,8 +16,9 @@ kubectl apply -f src/metallb/metallb_conf.yaml #configuration metallb
 
 ################ build image ####################
 docker build --no-cache  -t my_nginx src/nginx/
-
 ################ deployment nginx #############
+
 kubectl apply -f src/nginx/nginx_deployment.yaml
 # docker run -tid  -p 80:80 -p 443:443 --name test1 my_nginx
-kubectl get service nginx-service --watch
+#  kubectl get all --watch
+minikube dashboard
