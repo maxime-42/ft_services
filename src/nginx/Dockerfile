@@ -1,4 +1,5 @@
 FROM alpine:latest
+
 RUN apk update && apk add nginx \
 && apk add --upgrade bash \
 && apk add openssl && mkdir -p var/run/nginx \

@@ -1,0 +1,55 @@
+
+# apiVersion: 1
+# datasources:
+# - name: telegraf
+#   orgId: 1
+#   type: influxdb
+#   access: proxy
+#   url: http://influxdb:8086
+#   database: telegraf
+#   isDefault: true
+#   version: 1
+#   editable: false
+#   basicAuth: true
+#   basicAuthUser: admin
+#   basicAuthPassword: password
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "true"
+  name: grafana
+spec:
+  type: LoadBalancer
+  selector:
+    app: grafana
+  ports:
+  - port: 3000
+    targetPort: 3000
+    name: grafana
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-deployment
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: my_grafana
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
