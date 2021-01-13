@@ -1,16 +1,23 @@
 #!/bin/sh
 
 ########### delete image#############
-docker image rm -f alpine
-docker image rm -f my_nginx
-docker image rm -f my_mysql
-docker image rm -f my_wordpress
-docker image rm -f my_php_my_admin
-docker image rm -f my_influxdb
-docker system prune -a
+#docker image rm -f alpine
+#docker image rm -f my_nginx
+#docker image rm -f my_mysql
+#docker image rm -f my_wordpress
+#docker image rm -f my_php_my_admin
+#docker image rm -f my_influxdb
+#docker system prune -a
 
 minikube delete
 minikube start --vm-driver=docker
+
+#CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
+#sed -i 's/192.168.49.2/'$CLUSTER_IP'/g' srcs/metallb/metallb_config.yaml
+#sed -i 's/192.168.49.2/'$CLUSTER_IP'/g' srcs/ftps/start.sh
+#sed -i 's/192.168.49.2/'$CLUSTER_IP'/g' srcs/nginx/nginx.conf
+#sed -i 's/192.168.49.2/'$CLUSTER_IP'/g' srcs/mysql/wordpress.sql
+#sed -i 's/192.168.49.2/'$CLUSTER_IP'/g' srcs/telegraf/telegraf.conf
 
 ### image visible in the cluster###
 

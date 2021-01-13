@@ -13,7 +13,7 @@ RUN openrc boot
 COPY mysql.cnf /etc/my.cnf
 COPY creatdb.sql /creatdb.sql
 COPY ./setup_mysql.sh .
-COPY wordpress.sql .
+#COPY wordpress.sql .
 
 RUN chmod 777 setup_mysql.sh
 EXPOSE 3306
