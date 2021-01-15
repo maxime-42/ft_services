@@ -32,8 +32,6 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manife
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 kubectl apply -f srcs/metallb/metallb_conf.yaml
 
-
-
 ######################## 			build image 				##################################################
 
 eval $(minikube docker-env) 		#point the docker client to the machine's docker daemon
