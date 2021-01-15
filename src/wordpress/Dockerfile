@@ -14,7 +14,6 @@ RUN	rm /etc/nginx/nginx.conf
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 COPY ./wp-config.php /var/www/wordpress/
-# COPY ./wordpress_config.php /var/www/wordpress/
 
 RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/example.key -out /etc/nginx/example.crt -subj "/C=FR/ST=IDE/L=Paris/O=42/OU=42/CN=mywebsite.com" 
 
