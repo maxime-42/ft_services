@@ -35,6 +35,12 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 15 #Kubelet qu'il devrait attendre 5 secondes avant d'effectuer la première probe
+          periodSeconds: 5 #Kubelet doit effectuer un check de liveness toutes les 5 secondes
         env:
         - name: PMA_HOST
           value: mysql
